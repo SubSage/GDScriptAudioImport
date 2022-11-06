@@ -180,7 +180,7 @@ func convert_to_16bit(data: PoolByteArray, from: int) -> PoolByteArray:
 	# so we just grab the 2 most significant bytes and ignore the other
 	if from == 24:
 		var j = 0
-		for i in range(0, data.size(), 3):
+		for i in range(0, data.size() - 3, 3):
 			data[j] = data[i+1]
 			data[j+1] = data[i+2]
 			j += 2
@@ -191,7 +191,7 @@ func convert_to_16bit(data: PoolByteArray, from: int) -> PoolByteArray:
 		var spb := StreamPeerBuffer.new()
 		var single_float: float
 		var value: int
-		for i in range(0, data.size(), 4):
+		for i in range(0, data.size() - 4, 4):
 			spb.data_array = data.subarray(i, i+3)
 			single_float = spb.get_float()
 			value = single_float * 32768
